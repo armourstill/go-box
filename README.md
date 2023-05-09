@@ -9,4 +9,4 @@
     - 1.23.9-standalone
     - 1.24.3-standalone
   - 当制作go-box镜像时，`kubeconform-cache`默认将拷贝至镜像的`/kubeconform-cache`目录
-- 容器中推荐的用法` kubeconform -cache /kubeconform-cache -summary -strict -kubernetes-version ${SUPPORTED_git K8S_VERSION} ${YAML_FILE}`
+- 容器中推荐的用法` kubeconform -cache /kubeconform-cache -summary -strict -kubernetes-version ${VALID_K8S_VERSION} ${YAML_FILE}`
