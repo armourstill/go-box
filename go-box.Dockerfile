@@ -5,8 +5,8 @@ RUN apk --no-cache add gcc musl-dev
 
 FROM gb-base AS gb-go
 
-# For Golang
 RUN wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -d -b $(go env GOPATH)/bin v1.52.2
+# For go install
 RUN go env -w GOPROXY=https://goproxy.cn,direct
 RUN CGO_ENABLED=0 go install github.com/swaggo/swag/cmd/swag@v1.8.12
 RUN go install github.com/golang/mock/mockgen@v1.6.0
@@ -20,7 +20,7 @@ FROM gb-base
 
 ARG KUBECONFORM_CACHE=/kubeconform-cache
 
-RUN apk --no-cache add bash git make protoc protobuf-dev
+RUN apk --no-cache add bash git make protoc protobuf-dev gomplate
 
 COPY --from=gb-go /go/bin /go/bin
 COPY kubeconform-cache ${KUBECONFORM_CACHE}/
