@@ -1,14 +1,14 @@
-FROM golang:1.20.4-alpine3.16 AS gb-base
+FROM golang:1.21.1-alpine3.17 AS gb-base
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 RUN apk --no-cache add gcc musl-dev
 
 FROM gb-base AS gb-go
 
-RUN wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -d -b $(go env GOPATH)/bin v1.52.2
+RUN wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -d -b $(go env GOPATH)/bin v1.54.2
 # For go install
 RUN go env -w GOPROXY=https://goproxy.cn,direct
-RUN CGO_ENABLED=0 go install github.com/swaggo/swag/cmd/swag@v1.8.12
+RUN CGO_ENABLED=0 go install github.com/swaggo/swag/cmd/swag@v1.16.2
 RUN go install github.com/golang/mock/mockgen@v1.6.0
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.30.0
 RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.3.0
